@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>Ubot</title>
+
+    <script type="module">
+        import { io } from 'https://cdn.socket.io/4.6.1/socket.io.esm.min.js';
+        const socket = io();
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            if (input.value) 
+            {
+                socket.emit('chat message', input.value);
+                input.value = '';
+            }
+        });
+    </script>
+
+    <style>
+        *,
+        *::before,
+        *::after 
+        {
+            box-sizing: border-box;
+        }
+        *:root 
+        {
+            color-scheme: light dark;
+        }
+        body 
+        {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            display: grid;
+            place-items: center;
+            height: 600px;
+            padding: 36px;
+            grid-template-rows: 1fr;
+        }
+
+        #chat 
+        {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+        width: 400px;
+        height: 100%;
+        position: relative  ;
+        }
+
+        #form 
+        {
+            bottom: 0;
+            display: flex;
+            height: 48px;
+            left: 0;
+            padding: 4px;
+            position: absolute;
+            right: 0;
+        }
+        #input 
+        {
+            border-radius: 9999px;
+            border: 1px solid #ccc;
+            flex: 1;
+            margin: 4px;
+            padding: 0 8px;
+        }
+    </style>
+</head>
+<body>
+    <section id="chat">
+        <form id="form" action="/api/message" method="POST">
+            <input type="text" name="message" id="input" placeholder="Escribe tu mensaje...">
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+</body>
+</html>
