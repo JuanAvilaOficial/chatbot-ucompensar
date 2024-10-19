@@ -13,6 +13,15 @@
         const messages = document.getElementById('messages');
         const Botmessages = document.getElementById('Botmessages');
 
+
+        //Mensajes de ubot de bienvenida
+        socket.on('connect', () => 
+        {
+            Botmessages.innerHTML = '<li>Hola, Soy Ubot, ¿cómo puedo ayudarte hoy?</li>';
+            
+        });
+
+        //Hace que el chat se actualice
         socket.on('chat message', (message) => {
             const item = `<li>${message}</li>`;
             messages.insertAdjacentHTML('beforeend', item);
@@ -101,8 +110,8 @@
 </head>
 <body>
     <section id="chat">
+        <div id="Botmessages"></div>
         <ul id="messages"></ul>
-        <ul id="Botmessages"></ul>
         <form id="form" action="/api/message" method="POST">
             <input type="text" name="message" id="input" placeholder="Escribe tu mensaje...">
             <button type="submit">Enviar</button>
