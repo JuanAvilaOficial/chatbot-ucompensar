@@ -6,10 +6,19 @@
 
     <script type="module">
         import { io } from 'https://cdn.socket.io/4.6.1/socket.io.esm.min.js';
+
         const socket = io();
         const form = document.getElementById('form');
         const input = document.getElementById('input');
+        const messages = document.getElementById('messages');
+        const Botmessages = document.getElementById('Botmessages');
 
+        socket.on('chat message', (message) => {
+            const item = `<li>${message}</li>`;
+            messages.insertAdjacentHTML('beforeend', item);
+        });
+        
+        
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             if (input.value) 
@@ -41,7 +50,24 @@
             padding: 36px;
             grid-template-rows: 1fr;
         }
-
+        #messages
+        {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        #messages > li
+        {
+            padding: .5rem 1rem;
+        }
+        #messages > li:nth-child(odd)
+        {
+            background-color: rgb(255, 102, 0);
+        }
+        #Botmessages
+        {
+            
+        }
         #chat 
         {
         border: 1px solid #ccc;
@@ -62,6 +88,7 @@
             position: absolute;
             right: 0;
         }
+
         #input 
         {
             border-radius: 9999px;
@@ -74,6 +101,8 @@
 </head>
 <body>
     <section id="chat">
+        <ul id="messages"></ul>
+        <ul id="Botmessages"></ul>
         <form id="form" action="/api/message" method="POST">
             <input type="text" name="message" id="input" placeholder="Escribe tu mensaje...">
             <button type="submit">Enviar</button>
