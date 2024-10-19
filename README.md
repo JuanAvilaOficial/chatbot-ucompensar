@@ -1,4 +1,4 @@
-[!NOTE]
+> [!NOTE]
 Para poder ejecutar el proyecto es necesario tener instalado Node.js en su computadora y ejecutar el siguente comando para correrlo:
 
 node --watch ./server/index.js
