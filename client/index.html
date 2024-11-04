@@ -3,6 +3,7 @@
 <head>
     
     <title>Ubot</title>
+    <link rel="stylesheet" href="Styles.css"/>
 
     <script type="module">
         import { io } from 'https://cdn.socket.io/4.6.1/socket.io.esm.min.js';
@@ -11,19 +12,27 @@
         const form = document.getElementById('form');
         const input = document.getElementById('input');
         const messages = document.getElementById('messages');
-        const Botmessages = document.getElementById('Botmessages');
-
 
         //Mensajes de ubot de bienvenida
         socket.on('connect', () => 
         {
-            Botmessages.innerHTML = `<p>Hola, Soy Ubot, ¿cómo puedo ayudarte hoy?</p>`;
             
+            const item =  ` <li id="ubotSend">
+                ¿Cuál es tu consulta?
+                <ol>
+                    <li>Software</li>
+                    <li>Hardware</li>
+                    <li>Planeación</li>
+                    <li>Capacitación</li>
+                    <li>Implementación</li>
+                </ol>
+            </li>`;
+            messages.insertAdjacentHTML('beforeend', item);
         });
 
         //Hace que el chat se actualice
         socket.on('chat message', (message) => {
-            const item = `<li>${message}</li>`;
+            const item = `<li id="userSend">${message}</li>`;
             messages.insertAdjacentHTML('beforeend', item);
         });
         
@@ -37,96 +46,25 @@
             }
         });
     </script>
-
-    <style>
-        *,
-        *::before,
-        *::after 
-        {
-            box-sizing: border-box;
-        }
-        *:root 
-        {
-            color-scheme: light dark;
-        }
-        #header
-        {            
-            background-color: rgb(255, 102, 0);
-            color: white;
-            padding: 0 0 0 10px;
-            margin: 0 0 20px 0;
-            height: 50px;
-            display: flex;
-            align-items: center;
-        }
-        body 
-        {
-            margin: 0;
-            font-family: 'Courier New', Courier, monospace;
-            display: grid;
-            place-items: center;
-            height: 600px;
-            padding: 36px;
-            grid-template-rows: 1fr;
-        }
-        #messages
-        {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-        #messages > li
-        {
-            padding: .5rem 1rem;
-        }
-        #messages > li:nth-child(odd)
-        {
-            background-color: rgb(255, 102, 0);
-        }
-        
-        #chat 
-        {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            overflow: hidden;
-            width: 400px;
-            height: 100%;
-            position: relative;
-        }
-
-        #form 
-        {
-            background-color: rgb(255, 255, 255);
-            display: flex;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 48px;
-            padding: 4px;
-            position: absolute;
-        }
-
-        #input 
-        {
-            border-radius: 9999px;
-            border: 1px solid #ccc;
-            flex: 1;
-            margin: 4px;
-            padding: 0 8px;
-        }
-    </style>
 </head>
 <body>
     <section id="chat">
         <div id="header">
             <p style="font-size: 24px;">Ubot</p>
-        </div>
-        <div id="Botmessages">            
-        </div>
-        <ul id="messages"></ul>
+        </div>        
+        <div id="messages" >
+            <div id="Botmessages">      
+                <div>
+                    <img src="ubot.png">
+                    <p> Hola, Soy Ubot, ¿cómo puedo ayudarte hoy? </p>      
+                </div>
+            </div>           
+        </div>        
         <form id="form" action="/api/message" method="POST">
-            <input type="text" name="message" id="input" placeholder="Escribe tu mensaje...">
-            <button type="submit">Enviar</button>
+            <input type="text" name="message" id="input" placeholder="Escribe tu consulta...">
+            <button type="submit" id="send">
+                <svg xmlns="http://www.w3.org/2000/svg" height="80%" viewBox="0 -960 960 960" width="80%" fill="#ff7d2c"><path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z"/></svg>
+            </button>
         </form>
     </section>
 </body>
