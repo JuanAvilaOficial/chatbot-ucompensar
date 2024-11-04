@@ -13,59 +13,42 @@
         const input = document.getElementById('input');
         const messages = document.getElementById('messages');
 
-        //Mensajes de ubot de bienvenida
-        socket.on('connect', () => 
-        {
-            
-            const item =  ` <li id="ubotSend">
-                ¿Cuál es tu consulta?
-                <ol>
-                    <li>Software</li>
-                    <li>Hardware</li>
-                    <li>Planeación</li>
-                    <li>Capacitación</li>
-                    <li>Implementación</li>
-                </ol>
-            </li>`;
-            messages.insertAdjacentHTML('beforeend', item);
-        });
-
         //Hace que el chat se actualice
         socket.on('chat message', (message) => {
             const item = `<li id="userSend">${message}</li>`;
+            console.log("html index");
             messages.insertAdjacentHTML('beforeend', item);
-        });
-        
+        });        
         
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             if (input.value) 
             {
                 socket.emit('chat message', input.value);
-                input.value = '';
+                input.value = '';                
             }
         });
     </script>
 </head>
 <body>
-    <section id="chat">
+    <div id="chat">
         <div id="header">
             <p style="font-size: 24px;">Ubot</p>
         </div>        
         <div id="messages" >
             <div id="Botmessages">      
-                <div>
-                    <img src="ubot.png">
-                    <p> Hola, Soy Ubot, ¿cómo puedo ayudarte hoy? </p>      
-                </div>
+                <img id="iconUbot" src="ubot.png">
+                <p>
+                    Hola, Soy Ubot ¿cómo puedo ayudarte hoy? 
+                </p>
             </div>           
-        </div>        
+        </div>
         <form id="form" action="/api/message" method="POST">
             <input type="text" name="message" id="input" placeholder="Escribe tu consulta...">
             <button type="submit" id="send">
                 <svg xmlns="http://www.w3.org/2000/svg" height="80%" viewBox="0 -960 960 960" width="80%" fill="#ff7d2c"><path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z"/></svg>
             </button>
         </form>
-    </section>
+    </div>
 </body>
 </html>
