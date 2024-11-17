@@ -2,11 +2,13 @@
     "cSpell.words": [
         "cliente",
         "clientes",
+        "computadora",
         "conectar",
         "conexion",
         "Configuración",
         "consumir",
         "crea",
+        "ejecutará",
         "Enviar",
         "espera",
         "existe",
@@ -21,5 +23,6 @@
         "tipo",
         "usando",
         "volver"
-    ]
+    ],
+    "git.ignoreLimitWarning": true
 }
