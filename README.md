@@ -7,7 +7,7 @@ python Ubot.py
 la aplicación se ejecutará en el puerto 3000 por defecto y para ver lo hay que poner en el navegador http://localhost:3000
 
 > [!important]
-# Para crear el .venv Importar el proyecto
+Para crear el .venv importante para el proyecto
 
 # Para linux 
 
