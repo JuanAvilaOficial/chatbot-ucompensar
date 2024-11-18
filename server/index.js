@@ -10,33 +10,35 @@ const app = express();
 const server = createServer(app);
 
 const io = new Server(server, {
-    connectionStateRecovery: {}
+    connectionStateRecovery: {},
 });
 
 io.on('connection', (socket) => {
-    console.log('A user connected');    
-    
+    console.log('A user connected');
+
     socket.on('disconnect', () => {
         console.log('A user disconnected');
     });
 
-    socket.on('chat message', async (message) => {        
+    socket.on('chat message', async (message) => {
         try {
             const response = await axios.post('http://127.0.0.1:5000/predict', {
-                pregunta: message             
-            });
-            
-            // Enviar la respuesta procesada al cliente
-            io.emit('chat message', {
                 pregunta: message,
-                respuesta: response.data.respuesta
             });
+
+            const respuestaProcesada = response?.data?.respuesta ?? 'Sin respuesta procesada.';
+
+            // Enviar datos como texto
+            socket.emit('chat message', JSON.stringify({
+                pregunta: message,
+                respuesta: respuestaProcesada,
+            }));
         } catch (error) {
             console.error('Error al consumir la API Flask:', error);
-            io.emit('chat message', { 
-                pregunta: message, 
-                respuesta: 'Ocurrió un error al procesar tu mensaje.' 
-            });
+            socket.emit('chat message', JSON.stringify({
+                pregunta: message,
+                respuesta: 'Ocurrió un error al procesar tu mensaje.',
+            }));
         }
     });
 });

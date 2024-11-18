@@ -1,38 +1,50 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-.yarn/install-state.gz
+# C extensions
+*.so
 
-# testing
-/coverage
+# Environment variables
+.env
 
-# next.js
-/.next/
-/out/
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
 
-# production
-/build
+# Environments
+.env/
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
 
-# misc
+# Flask files
+instance/
+*.log
+
+# Ignore model and dataset files
+*.h5
+*.pb
+*.tflite
+*.ckpt
+*.data-00000-of-00001
+*.index
+checkpoint
+saved_model/
+
+# Ignore datasets and Excel files
+*.xlsx
+*.csv
+*.tsv
+
+# Ignore other IDE-specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# System files
 .DS_Store
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# local env files
-.env*.local
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-.vercel
+Thumbs.db
