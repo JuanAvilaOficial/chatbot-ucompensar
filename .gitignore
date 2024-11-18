@@ -25,7 +25,6 @@ instance/
 *.log
 
 # Ignore model and dataset files
-*.h5
 *.pb
 *.tflite
 *.ckpt
