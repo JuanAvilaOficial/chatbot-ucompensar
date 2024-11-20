@@ -20,25 +20,24 @@ io.on('connection', (socket) => {
         console.log('A user disconnected');
     });
 
+    socket.on('chat message', (message) => {
+        io.emit('chat message', message, 'userSend');
+    });
     socket.on('chat message', async (message) => {
+
         try {
             const response = await axios.post('http://127.0.0.1:5000/predict', {
-                pregunta: message,
+                pregunta: message
             });
-
-            const respuestaProcesada = response?.data?.respuesta ?? 'Sin respuesta procesada.';
-
-            // Enviar datos como texto
-            socket.emit('chat message', JSON.stringify({
-                pregunta: message,
-                respuesta: respuestaProcesada,
-            }));
+            io.emit('chat message', response.data.respuesta ?? 'Sin respuesta procesada.', 'ubotSend');
+            
         } catch (error) {
-            console.error('Error al consumir la API Flask:', error);
+            console.error('Error al consumir la API Flask:', error.message);
+
             socket.emit('chat message', JSON.stringify({
                 pregunta: message,
                 respuesta: 'Ocurrió un error al procesar tu mensaje.',
-            }));
+            }), 'ubotSend');
         }
     });
 });

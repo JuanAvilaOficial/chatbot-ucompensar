@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    
+<head>    
     <title>Ubot</title>
     <link rel="stylesheet" href="Styles.css"/>
 
     <script type="module">
+
         import { io } from 'https://cdn.socket.io/4.6.1/socket.io.esm.min.js';
+
 
         const socket = io();
         const form = document.getElementById('form');
@@ -14,20 +15,39 @@
         const messages = document.getElementById('messages');
 
         //Hace que el chat se actualice
-        socket.on('chat message', (message) => {
-            const item = `<li id="userSend">${message}</li>`;
-            console.log("html index");
-            messages.insertAdjacentHTML('beforeend', item);
-        });        
+        socket.on('chat message', (message, id) => {
+            if (id === 'ubotSend') {
+                const item = `<li id="ubotSend">${message}</li>`;
+                messages.insertAdjacentHTML('beforeend', item);
+            } 
+            else {
+                const item = `<li id="userSend">${message}</li>`;
+                messages.insertAdjacentHTML('beforeend', item);
+            }
+        });
+
+        socket.on('Eliminar mensaje', (message) => {
+            const item = document.getElementById('botButtons');
+            item.remove();
+            
+            messages.insertAdjacentHTML('beforeend', 
+            `<li id="ubotSend">Hola ${message}, ¿Que deseas consultar?</li>`);
+        });
         
         form.addEventListener('submit', (event) => {
             event.preventDefault();
+            console.log('Enviar');
             if (input.value) 
             {
                 socket.emit('chat message', input.value);
                 input.value = '';                
             }
         });
+        botButtons.addEventListener('button', (event) => {
+            event.preventDefault();
+            console.log('Boton presionado');
+        });
+                
     </script>
 </head>
 <body>
@@ -41,13 +61,18 @@
                 <p>
                     Hola, Soy Ubot ¿cómo puedo ayudarte hoy? 
                 </p>
+                <form id="botButtons">
+                    <button type="button" id="temaEstudiantes">Estudiante</button>
+                    <button type="button" id="temaMaestros">Docente</button>                    
+                </form>
+
             </div>           
         </div>
         <form id="form" action="/api/message" method="POST">
             <input type="text" name="message" id="input" placeholder="Escribe tu consulta...">
-            <button type="submit" id="send">
+            <button type="submit" id="send" state="disabled">
                 <svg xmlns="http://www.w3.org/2000/svg" height="80%" viewBox="0 -960 960 960" width="80%" fill="#ff7d2c"><path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z"/></svg>
-            </button>
+            </button>            
         </form>
     </div>
 </body>

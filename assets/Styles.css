@@ -37,6 +37,34 @@ body {
     align-items: center;
 }
 
+#botButtons > button {
+    border-radius: 5px;
+    
+    background-color:  rgb(255, 102, 0);
+    color: white;
+    width: 100px;
+    height: 30px;
+    border: none;
+
+}
+#botButtons > button:hover {
+    background-color:  white;
+    color: rgb(255, 102, 0);
+    width: 100px;
+    height: 30px;
+    border: rgb(255, 102, 0) solid 1px;
+    cursor: pointer;
+}
+
+#botButtons > button::selection {
+    background-color:  white;
+    color: rgb(255, 102, 0);
+    width: 100px;
+    height: 30px;
+    border: rgb(255, 102, 0) solid 1px;
+    cursor: pointer;
+}
+
 #chat {
     max-width: 400px;
     height: 600px;
