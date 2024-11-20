@@ -1,11 +1,3 @@
-> [!NOTE]
-Para poder ejecutar el proyecto es necesario tener instalado Node.js en su computadora y ejecutar los siguientes comandos: 
-
-- node --watch ./server/index.js
-- python Ubot.py
-
-la aplicación se ejecutará en el puerto 3000 por defecto y para ver lo hay que poner en el navegador http://localhost:3000
-
 > [!important]
 Para crear el .venv importante para el proyecto
 
@@ -30,3 +22,12 @@ ya debería estar listo para instalar las dependencias de python
 con -> pip install {paquete}
 
 ```pip install Flask tensorflow pandas numpy scikit-learn keras openpyxl```
+
+> [!NOTE]
+Para poder ejecutar el proyecto es necesario tener instalado Node.js en su computadora y ejecutar los siguientes comandos: 
+
+- node --watch ./server/index.js
+- python Ubot.py
+
+la aplicación se ejecutará en el puerto 5000 por defecto y para ver lo hay que poner en el navegador http://localhost:5000
+

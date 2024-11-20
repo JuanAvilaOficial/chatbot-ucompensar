@@ -10,7 +10,7 @@ from sklearn.preprocessing import LabelEncoder
 Ubot = Flask(__name__)
 
 # Cargar el modelo y otros recursos necesarios
-model = load_model('modelo_chatbot.h5')
+model = load_model('modelo_chatbot.keras')
 
 # Cargar el Tokenizer y el LabelEncoder
 file_path = 'Preguntas_Universidad.xlsx'
@@ -18,7 +18,7 @@ excel_data = pd.ExcelFile(file_path)
 software_sheet = excel_data.parse('ESTUDIANTES')
 print(software_sheet.columns)
 preguntas = software_sheet.iloc[:, 1].values
-respuestas = software_sheet.iloc[:, 3:12].values  
+respuestas = software_sheet.iloc[:, 3:13].values  
 
 # Configuración del Tokenizer y LabelEncoder
 tokenizer = Tokenizer()
@@ -30,11 +30,11 @@ todos_los_datos = np.concatenate((respuestas.flatten(), respuestas.flatten()))
 le.fit(todos_los_datos)
 
 max_len = 100 
-umbral = 0.1
+umbral = 0.35
 
 def predecir_respuesta(pregunta_hecha):
     try:
-        if len(pregunta_hecha.split()) < 3:
+        if len(pregunta_hecha.split()) < 2:
             return "Parece que tu pregunta está incompleta o no tiene sentido."
             
         preguntas_test_tokens = tokenizer.texts_to_sequences([pregunta_hecha])
