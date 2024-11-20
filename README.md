@@ -29,4 +29,4 @@ ya debería estar listo para instalar las dependencias de python
 
 con -> pip install {paquete}
 
-`pip install Flask tensorflow pandas numpy scikit-learn keras keras_preprocessing`
+```pip install Flask tensorflow pandas numpy scikit-learn keras openpyxl```
